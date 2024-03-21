@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CURP | Tramites | UPchiapas</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Generador de CURP y RFC</h1>
+    <div class="container">
+      <form action="{{ url_for('generar_y_mostrar_curp') }}" method="post">
+        <table>
+          <tr>
+            <td>
+                <br>
+              <label for="nombre">Nombre:</label>
+              <input type="text" id="nombre" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" name="nombre" required />
+            </td>
+            <td>
+                <br>
+              <label for="apellido_paterno">Apellido Paterno:</label>
+              <input type="text" id="apellido_paterno" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" name="apellido_paterno" required />
+            </td>
+            <td>
+                <br>
+              <label for="apellido_materno">Apellido Materno:</label>
+              <input type="text" id="apellido_materno" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" name="apellido_materno" required />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="fecha_nacimiento">Fecha de Nacimiento (AAAA-MM-DD):</label>
+              <input type="text" id="fecha_nacimiento" name="fecha_nacimiento" pattern="\d{4}-\d{2}-\d{2}" required />
+            </td>
+            <td>
+              <label for="sexo">Sexo (H o M):</label>
+              <input type="text" id="sexo" name="sexo" pattern="[HM]" required />
+            </td>
+            <td>
+              <label for="estado">Clave de Entidad Federativa de Nacimiento:</label>
+              <input type="text" id="estado" name="estado" pattern="[A-Z]{2}" required />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <br />
+              <label for="captcha">Resuelve el captcha:</label><br />
+              <center>
+                <img src="{{ url_for('static', filename='captcha.png') }}" alt="Captcha" />
+              </center>
+              <br />
+              <center>
+                <input type="text" id="captcha" name="captcha" required />
+              </center>
+            </td>
+            <br />
+          </tr>
+        </table> 
+        <br>
+        <button type="submit" class="boton-1">Generar CURP</button>
+      </form>
+
+      <div class="generador">
+        {% if curp %}
+        <h2>RFC Generado:</h2>
+        <p>{{ rfc }}</p>
+        <h2>CURP Generada:</h2>
+        <p>{{ curp }}</p>
+        <center><h2>Código QR:</h2></center>
+        <center>
+          <img src="{{ url_for('static', filename='curp_qr.png') }}" alt="Código QR de la CURP" />
+        </center>
+         <a href="{{ url_for('static', filename=curp + '.png') }}" download="{{ curp }}.png">Descargar código QR</a>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
