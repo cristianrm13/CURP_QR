@@ -91,7 +91,7 @@ def generar_y_mostrar_curp():
         return render_template('error.html', error="Captcha incorrecto. Inténtalo de nuevo.")
 
     curp_generada, rfc_generado = generar_curp(nombre, apellido_paterno, apellido_materno, fecha_nacimiento, sexo, estado)
-    qr_content = f'CURP: {curp_generada}\nRFC: {rfc_generado}'
+    qr_content = f'Nombre: {nombre} {apellido_paterno} {apellido_materno}\nCURP: {curp_generada}\nRFC: {rfc_generado}'
 
     qr = qrcode.QRCode(
         version=1,
@@ -104,7 +104,7 @@ def generar_y_mostrar_curp():
 
     img = qr.make_image(fill_color="black", back_color="white")
 
-    img_file = f"static/Qrs/{curp_generada}.png"
+    img_file = f"static/{curp_generada}.png"
     img.save(img_file)
 
     return render_template('formulario.html', curp=curp_generada, rfc=rfc_generado, img_file=img_file)

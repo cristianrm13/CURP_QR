@@ -72,7 +72,7 @@
         <p>{{ curp }}</p>
         <center><h2>Código QR:</h2></center>
         <center>
-          <img src="{{ url_for('static', filename='curp_qr.png') }}" alt="Código QR de la CURP" />
+          <img src="{{ url_for('static', filename=curp + '.png') }}" alt="Código QR de la CURP" />
         </center>
          <a href="{{ url_for('static', filename=curp + '.png') }}" download="{{ curp }}.png">Descargar código QR</a>
         {% endif %}
